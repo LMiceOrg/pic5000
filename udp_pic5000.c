@@ -5,11 +5,7 @@
 #include <string.h>
 #include <errno.h>
 #include <time.h>
-
-#if defined (__linux__)
 #include <sys/time.h>
-#endif
-
 #include <ctype.h>
 
 #include <pthread.h>    /* libpthread */

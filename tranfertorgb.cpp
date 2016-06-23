@@ -176,13 +176,8 @@ void pc_main(int index)
                     //  B       G       B   G
                     p->red = getp(j,i);
                     p->blue = getqa(j, i);
-#if defined(__linux__)
                     pos13 = fabs( (int)getp(j-2, i) - (int)getp(j+2, i) );
                     pos24 = fabs((int)getp(j, i-2) - (int)getp(j, i+2));
-#else defined(_WIN32)
-                    pos13 = abs( (int)getp(j-2, i) - (int)getp(j+2, i) );
-                    pos24 = abs((int)getp(j, i-2) - (int)getp(j, i+2));
-#endif
                     if(pos13<pos24)
                         p->green = getud(j, i);
                     else if(pos13 > pos24)
@@ -200,14 +195,8 @@ void pc_main(int index)
                     p->blue = getp(j, i);
                     p->red =  getqa(j, i);
 
-#if defined(__linux__)
                     pos13 = fabs( (int)getp(j-2, i) - (int)getp(j+2, i) );
                     pos24 = fabs((int)getp(j, i-2) - (int)getp(j, i+2));
-#else defined(_WIN32)
-                    pos13 = abs( (int)getp(j-2, i) - (int)getp(j+2, i) );
-                    pos24 = abs((int)getp(j, i-2) - (int)getp(j, i+2));
-#endif
-
                     if(pos13<pos24)
                         p->green = getud(j, i);
                     else if(pos13 > pos24)

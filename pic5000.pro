@@ -39,23 +39,12 @@ FORMS    += mainwindow.ui \
     settingdialog.ui
 
 message("compiling...")
-
 win32-mingw* {
 INCLUDEPATH += C:\winpcap\WpdPack\Include
 LIBS += -LC:\winpcap\WpdPack\Lib -lwpcap \
  -LC:\work\tiff-3.8.2\mingw -lport -ltiff -lws2_32
 INCLUDEPATH += c:\work\tiff-3.8.2\libtiff
 }
-
-win32-msvc*{
-message("win32 vc")
-INCLUDEPATH += C:\WpdPack\Include
-LIBS += -LC:\WpdPack\Lib -lwpcap -lPacket
-
-INCLUDEPATH += C:\jansson-2.7-build\include
-LIBS += -LC:\jansson-2.7-build\lib -ljansson_d
-}
-
 
 mac* {
 message("macos clang env")

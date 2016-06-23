@@ -14,20 +14,8 @@ extern "C" {
 #define NETCAP_CHANNEL_COUNT    4
 
 
-
-#if defined(__linux__)
 extern struct timeval packageStartTime[NETCAP_CHANNEL_COUNT];
 extern struct timeval packageEndTime[NETCAP_CHANNEL_COUNT];
-#elif defined(_WIN32)
-#include <Windows.h>
-extern DWORD packageStartTime[NETCAP_CHANNEL_COUNT];
-extern DWORD packageEndTime[NETCAP_CHANNEL_COUNT];
-
-#else
-#error("No implementation!")
-#endif
-
-
 extern int packageCounter[NETCAP_CHANNEL_COUNT];
 extern char* pcapBuff[NETCAP_CHANNEL_COUNT];
 extern volatile int pcapState[NETCAP_CHANNEL_COUNT];

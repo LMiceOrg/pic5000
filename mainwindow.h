@@ -14,17 +14,8 @@ namespace Ui {
 class MainWindow;
 }
 
-#if defined(__linux__)
 extern struct timeval totalStartTime[NETCAP_CHANNEL_COUNT];
 extern struct timeval totalEndTime[NETCAP_CHANNEL_COUNT];
-#elif defined(_WIN32)
-#include <Windows.h>
-extern DWORD totalStartTime[NETCAP_CHANNEL_COUNT];
-extern DWORD totalEndTime[NETCAP_CHANNEL_COUNT];
-
-#else
-#error("No implementation!")
-#endif
 
 class MainWindow : public QMainWindow
 {

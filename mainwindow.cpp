@@ -15,10 +15,7 @@
 //#include <stdint.h>
 #include <assert.h>
 #include <time.h>
-
-#if defined (__linux__)
 #include <sys/time.h>
-#endif
 
 #include <QMessageBox>
 #include <QFileDialog>
@@ -29,17 +26,8 @@
 //#include "tiffio.h"
 #include "udp_pic5000.h"
 
-#if defined(__linux__)
 struct timeval totalStartTime[NETCAP_CHANNEL_COUNT];
 struct timeval totalEndTime[NETCAP_CHANNEL_COUNT];
-#elif defined(_WIN32)
-#include <Windows.h>
-DWORD totalStartTime[NETCAP_CHANNEL_COUNT];
-DWORD totalEndTime[NETCAP_CHANNEL_COUNT];
-
-#else
-#error("No implementation!")
-#endif
 
 inline ushort ntohs_i(ushort x)
 {
@@ -169,7 +157,6 @@ void MainWindow::resetScene(int index)
         printf("index %d load failed\n", index);
 
     scene[index]->addPixmap(pi);
-#if defined(__linux__)
     struct timezone tz;
     struct timeval t1,t2;
     gettimeofday(&t1, &tz);
@@ -189,51 +176,24 @@ void MainWindow::resetScene(int index)
            difftimeval(packageEndTime[index], packageStartTime[index]),
            difftimeval(t2,t1),
            difftimeval(totalEndTime[index], totalStartTime[index]));
-#else defined(_WIN32)
-    DWORD t1, t2;
-    t1 = GetTickCount();
-    saveSceneToTiff(index, name);
-    t2 = GetTickCount();
 
-    totalEndTime[index] = GetTickCount();
-    setWindowTitle(tr("time[%1]:packages=%2 trans=%3  store=%4 total=%5")
-                   .arg(QDateTime::currentDateTime().toString("hhmmss"))
-                   .arg(packageCounter[index])
-                   .arg( packageEndTime[index]- packageStartTime[index])
-                   .arg( t2-t1)
-                   .arg( totalEndTime[index]- totalStartTime[index])
-                   );
-
-#endif
     if(packageCounter[index] < 74211)
     {
         int count = 0;
         netcap_retrans(index, &count);
         if(count != 0)
         {
-#if defined (__linux__)
             timespec ts1,ts2;
             ts1.tv_sec=0;
             ts1.tv_nsec = 500*1e6;
             nanosleep(&ts1, &ts2);
-#else  defined(_WIN32)
-            Sleep(500);
-#endif
         }
         printf("retrans count is %d\n", count);
-#if defined (__linux__)
         printf("packages=%d trans=%lld store=%lld total=%lld\n",
                packageCounter[index],
                difftimeval(packageEndTime[index], packageStartTime[index]),
                difftimeval(t2,t1),
                difftimeval(totalEndTime[index], totalStartTime[index]));
-#else  defined(_WIN32)
-        printf("packages=%d trans=%lld store=%lld total=%lld\n",
-               packageCounter[index],
-               packageEndTime[index]-packageStartTime[index]),
-               t2-t1,
-               totalEndTime[index]-totalStartTime[index];
-#endif
     }
     packageCounter[index] = 0;
     memset(rawBuff[index], 0, 103301760);

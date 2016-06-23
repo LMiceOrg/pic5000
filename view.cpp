@@ -15,7 +15,7 @@
 #include <QImage>
 
 #include <time.h>
-//#include <sys/time.h>
+#include <sys/time.h>
 
 #include "camerathread.h"
 #include "udp_pic5000.h"
@@ -24,18 +24,8 @@
 extern CameraThread *capThread[NETCAP_CHANNEL_COUNT];
 extern volatile int pcapState[NETCAP_CHANNEL_COUNT];
 
-#if defined(__linux__)
 extern struct timeval totalStartTime[NETCAP_CHANNEL_COUNT];
 extern struct timeval totalEndTime[NETCAP_CHANNEL_COUNT];
-#elif defined(_WIN32)
-#include <Windows.h>
-extern DWORD totalStartTime[NETCAP_CHANNEL_COUNT];
-extern DWORD totalEndTime[NETCAP_CHANNEL_COUNT];
-
-#else
-#error("No implementation!")
-#endif
-
 
 #ifndef QT_NO_WHEELEVENT
 void GraphicsView::wheelEvent(QWheelEvent *e)
@@ -355,13 +345,8 @@ void View::toggleColor()
 
 void View::snapPicture()
 {
-#if defined(__linux__)
     struct timezone tz;
     gettimeofday(& totalStartTime[windowId], &tz);
-#elif defined(_WIN32)
-    totalStartTime[windowId] = GetTickCount();
-#else
-#endif
     emit StartSnapPicture(windowId);
     netcap_snap(windowId, 0);
 }
