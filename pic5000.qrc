@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/trans">
+        <file alias="zh_cn">pic5000.qm</file>
+    </qresource>
+</RCC>

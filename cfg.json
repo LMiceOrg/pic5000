@@ -1,0 +1,22 @@
+{
+    "channel_count":2,
+    "net_device":[
+        "eth0"
+        ,"wlan0"
+    ],
+
+    "time_period": 6000,
+    "pic_path":  "/media/data",
+
+    "areas":[
+        {
+            "lt":{"x":40,"y":12,"z":0},
+            "rb":{"x":41,"y":13,"z":0}
+        },
+        {
+            "lt":{"x":38,"y":12,"z":0},
+            "rb":{"x":39,"y":12.5,"z":0}
+        }
+    ]
+}
+
