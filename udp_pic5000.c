@@ -8,17 +8,24 @@
 
 #if defined (__linux__)
 #include <sys/time.h>
+#else defined(_WIN32)
+#include <Windows.h>
 #endif
 
-#include <ctype.h>
-
 #include <pthread.h>    /* libpthread */
-
 #include "udp_pic5000.h"
 #include "raw_pic5000.h"
 
+#if defined(__linux__)
 struct timeval packageStartTime[NETCAP_CHANNEL_COUNT];
 struct timeval packageEndTime[NETCAP_CHANNEL_COUNT];
+#elif defined(_WIN32)
+DWORD packageStartTime[NETCAP_CHANNEL_COUNT];
+DWORD packageEndTime[NETCAP_CHANNEL_COUNT];
+#else
+#error("No implementation!")
+#endif
+
 
 int packageCounter[NETCAP_CHANNEL_COUNT];
 char* pcapBuff[NETCAP_CHANNEL_COUNT];
@@ -161,11 +168,22 @@ void netcap_callback(u_char *arg, const struct pcap_pkthdr* pkthdr,const u_char*
     struct timezone tz;
     if(pcount == 0)
     {
+
+#if defined (__linux__)
         gettimeofday(& packageStartTime[channel], &tz);
+#else defined (_WIN32)
+        packageStartTime[channel]=GetTickCount();
+#endif
+
     }
     else if(pcount == NETCAP_PACKAGE_COUNT -1)
     {
+#if defined (__linux__)
         gettimeofday(& packageEndTime[channel], &tz);
+#else defined (_WIN32)
+        packageEndTime[channel]=GetTickCount();
+#endif
+
     }
 #endif
 

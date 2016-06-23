@@ -4,7 +4,7 @@
 #include <jansson.h>
 #include <string.h>
 
-#include <pthread.h>
+#include <pthread.h>    /* libpthread */
 
 pthread_t capcontrol_thread_t;
 control_config_t cap_config;

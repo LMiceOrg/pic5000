@@ -15,7 +15,12 @@
 #include <QImage>
 
 #include <time.h>
-//#include <sys/time.h>
+
+#if defined (__linux__)
+#include <sys/time.h>
+#else defined (_WIN32)
+#include <Windows.h>
+#endif
 
 #include "camerathread.h"
 #include "udp_pic5000.h"

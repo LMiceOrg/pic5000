@@ -18,6 +18,8 @@
 
 #if defined (__linux__)
 #include <sys/time.h>
+#else defined (_WIN32)
+#include <Windows.h>
 #endif
 
 #include <QMessageBox>
@@ -230,9 +232,9 @@ void MainWindow::resetScene(int index)
 #else  defined(_WIN32)
         printf("packages=%d trans=%lld store=%lld total=%lld\n",
                packageCounter[index],
-               packageEndTime[index]-packageStartTime[index]),
+               packageEndTime[index]-packageStartTime[index],
                t2-t1,
-               totalEndTime[index]-totalStartTime[index];
+               totalEndTime[index]-totalStartTime[index]);
 #endif
     }
     packageCounter[index] = 0;
