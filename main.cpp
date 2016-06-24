@@ -14,7 +14,6 @@ int main(int argc, char *argv[])
     QTranslator trans;
     trans.load(":/trans/zh_cn");
     a.installTranslator(&trans);
-
     netcap_init(1);
     capThread[0] = new CameraThread(0);
 

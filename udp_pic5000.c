@@ -1,3 +1,4 @@
+//#pragma comment(lib,"wpcap.lib")
 #include <pcap.h> /* libpcap */
 
 #include <stdio.h>
@@ -9,12 +10,12 @@
 #if defined (__linux__)
 #include <sys/time.h>
 #else defined(_WIN32)
-#include <Windows.h>
 #endif
 
 #include <pthread.h>    /* libpthread */
 #include "udp_pic5000.h"
 #include "raw_pic5000.h"
+#pragma comment(lib,"ws2_32.lib")
 
 #if defined(__linux__)
 struct timeval packageStartTime[NETCAP_CHANNEL_COUNT];
@@ -178,6 +179,7 @@ void netcap_callback(u_char *arg, const struct pcap_pkthdr* pkthdr,const u_char*
     }
     else if(pcount == NETCAP_PACKAGE_COUNT -1)
     {
+
 #if defined (__linux__)
         gettimeofday(& packageEndTime[channel], &tz);
 #else defined (_WIN32)

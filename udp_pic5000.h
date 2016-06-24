@@ -22,7 +22,6 @@ extern struct timeval packageEndTime[NETCAP_CHANNEL_COUNT];
 #include <Windows.h>
 extern DWORD packageStartTime[NETCAP_CHANNEL_COUNT];
 extern DWORD packageEndTime[NETCAP_CHANNEL_COUNT];
-
 #else
 #error("No implementation!")
 #endif
@@ -51,8 +50,9 @@ int free_netdev_list(char** devlist);
 int netcap_snap(int channel, int time);
 int netcap_retrans(int channel, int *pcnt);
 
+#if defined(__linux__)
 int64_t difftimeval(const struct timeval tv1, const struct timeval tv2);
-
+#endif
 
 #ifdef __cplusplus
 }

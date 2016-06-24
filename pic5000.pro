@@ -50,13 +50,13 @@ INCLUDEPATH += c:\work\tiff-3.8.2\libtiff
 win32-msvc*{
 message("win32 vc")
 INCLUDEPATH += C:\WpdPack\Include
-LIBS += -LC:\WpdPack\Lib -lwpcap -lPacket
+LIBS += -LC:\WpdPack\Lib\x64 -lwpcap -lPacket
 
 INCLUDEPATH += C:\jansson-2.7-build\include
 LIBS += -LC:\jansson-2.7-build\lib -ljansson_d
 
-INCLUDEPATH += C:\pthread\Pre-built.1\include
-LIBS += -LC:\pthread\Pre-built.1\lib -lpthreadVC1
+INCLUDEPATH += C:\pthread\Pre-built.2\include
+LIBS += -LC:\pthread\Pre-built.2\lib\x64 -lpthreadVC2
 
 }
 
