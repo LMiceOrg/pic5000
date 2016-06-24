@@ -363,9 +363,8 @@ void View::snapPicture()
 #if defined(__linux__)
     struct timezone tz;
     gettimeofday(& totalStartTime[windowId], &tz);
-#elif defined(_WIN32)
+#else defined(_WIN32)
     totalStartTime[windowId] = GetTickCount();
-#else
 #endif
     emit StartSnapPicture(windowId);
     netcap_snap(windowId, 0);

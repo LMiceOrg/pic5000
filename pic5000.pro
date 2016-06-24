@@ -15,7 +15,7 @@ TEMPLATE = app
 qtHaveModule(printsupport): QT += printsupport
 qtHaveModule(opengl): QT += opengl
 
-SOURCES += main.cpp\
+SOURCES +=\
         mainwindow.cpp \
     udp_pic5000.c \
     view.cpp \
@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     settingdialog.cpp \
     tranfertorgb.cpp    \
     #mtig_host.c \
-    control_config.c
+    control_config.c \
+    main.cpp
 
 HEADERS  += mainwindow.h \
     udp_pic5000.h \

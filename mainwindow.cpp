@@ -205,6 +205,11 @@ void MainWindow::resetScene(int index)
                    .arg( t2-t1)
                    .arg( totalEndTime[index]- totalStartTime[index])
                    );
+    printf("packages=%d trans=%lld store=%lld total=%lld\n",
+           packageCounter[index],
+           packageEndTime[index]-packageStartTime[index],
+           t2-t1,
+           totalEndTime[index]-totalStartTime[index]);
 
 #endif
     if(packageCounter[index] < 74211)
