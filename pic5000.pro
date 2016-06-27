@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       -= gui
+QT        += core
 CONFIG += console
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -16,36 +17,30 @@ qtHaveModule(printsupport): QT += printsupport
 qtHaveModule(opengl): QT += opengl
 
 SOURCES +=\
-        mainwindow.cpp \
     udp_pic5000.c \
-    view.cpp \
-    camerathread.cpp \
-    settingdialog.cpp \
-    tranfertorgb.cpp    \
+    #camerathread.cpp \
     #mtig_host.c \
-    control_config.c \
     main.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     udp_pic5000.h \
-    view.h \
-    camerathread.h \
-    settingdialog.h \
-    tranfertorgb.h \
-    raw_pic5000.h \
-    control_config.h \
-    mtig_host.h
+    #camerathread.h
 
 FORMS    += mainwindow.ui \
     settingdialog.ui
 
 message("compiling...")
 
-win32-mingw* {
-INCLUDEPATH += C:\winpcap\WpdPack\Include
-LIBS += -LC:\winpcap\WpdPack\Lib -lwpcap \
- -LC:\work\tiff-3.8.2\mingw -lport -ltiff -lws2_32
-INCLUDEPATH += c:\work\tiff-3.8.2\libtiff
+win32-g++ {
+#INCLUDEPATH += C:\winpcap\WpdPack\Include
+#LIBS += -LC:\winpcap\WpdPack\Lib -lwpcap \
+# -LC:\work\tiff-3.8.2\mingw -lport -ltiff -lws2_32
+#INCLUDEPATH += c:\work\tiff-3.8.2\libtiff
+
+INCLUDEPATH += C:\WpdPack\Include
+LIBS += -LC:\WpdPack\Lib -lwpcap -lPacket -lpthread -lws2_32
+
+DEFINES += WIN32_LEAN_AND_MEAN  WINVER=0x0501
 }
 
 win32-msvc*{
